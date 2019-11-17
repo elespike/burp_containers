@@ -56,8 +56,11 @@ Your browser will then display a warning, and provide the option to accept the s
 
 Upon doing so, you will receive an [HTTP 405](https://http.cat/405) response with the following content:
 > Error response
+>
 > Error code 405.
+>
 > Message: Method Not Allowed.
+>
 > Error code explanation: 405 = Specified method is invalid for this resource.. 
 
 This is expected and can be ignored. You can now follow the connection steps above.
