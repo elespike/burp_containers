@@ -1,0 +1,16 @@
+from httpd:latest
+
+run apt-get update \
+ && apt-get upgrade -y
+
+run apt-get install --no-install-recommends -y openssl procps
+
+run apt autoremove -y
+
+copy ./entrypoint.sh /root/
+copy --chown=daemon:daemon ./noVNC/ /usr/local/apache2/htdocs/
+
+expose 443/tcp
+
+entrypoint ["/bin/bash", "/root/entrypoint.sh"]
+

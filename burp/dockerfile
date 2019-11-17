@@ -1,0 +1,29 @@
+# Burp issues compatibility warnings for JRE 12 and newer,
+# and JRE 11 seems to work best on Debian Stretch.
+from openjdk:11-jre-stretch
+
+run apt-get update \
+ && apt-get upgrade -y
+
+run apt-get install --no-install-recommends -y \
+    libxext6    \
+    libxrender1 \
+    libxtst6    \
+    wget
+
+run apt autoremove -y
+
+run groupadd burp && mkdir /home/burp       \
+ && useradd -s /bin/bash -g burp burp       \
+ && cp /etc/skel/.bashrc /home/burp/.bashrc \
+ && echo "cd ~/share" >> /home/burp/.bashrc
+
+copy ./entrypoint.sh   /home/burp/
+copy ./user_configs    /home/burp/user_configs
+copy ./project_configs /home/burp/project_configs
+copy ./prefs.xml       /home/burp/.java/.userPrefs/burp/prefs.xml
+
+expose 8080/tcp
+
+entrypoint ["/bin/bash", "/home/burp/entrypoint.sh"]
+

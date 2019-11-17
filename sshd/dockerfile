@@ -1,0 +1,25 @@
+from debian:buster-slim
+
+run apt-get update \
+ && apt-get upgrade -y
+
+run apt-get install --no-install-recommends -y openssh-server
+
+run apt autoremove -y
+
+run groupadd scribe && mkdir /home/scribe     \
+ && useradd -s /bin/bash -g scribe scribe     \
+ && cp /etc/skel/.bashrc /home/scribe/.bashrc \
+ && echo "cd ~/share" >> /home/scribe/.bashrc
+
+run mkdir /run/sshd
+
+copy ./entrypoint.sh   /home/scribe/
+copy ./authorized_keys /home/scribe/.ssh/
+
+run chmod 600 /home/scribe/.ssh/authorized_keys
+
+expose 22/tcp
+
+entrypoint ["/bin/bash", "/home/scribe/entrypoint.sh"]
+

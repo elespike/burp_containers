@@ -1,0 +1,27 @@
+from debian:buster-slim
+
+run apt-get update \
+ && apt-get upgrade -y
+
+run apt-get install --no-install-recommends -y \
+    fluxbox           \
+    openssl           \
+    python-setuptools \
+    websockify        \
+    x11vnc            \
+    xterm             \
+    xvfb
+
+run apt autoremove -y
+
+run groupadd oracle && mkdir /home/oracle     \
+ && useradd -s /bin/bash -g oracle oracle     \
+ && cp /etc/skel/.bashrc /home/oracle/.bashrc \
+ && echo "cd ~/share" >> /home/oracle/.bashrc
+
+copy ./entrypoint.sh /home/oracle/
+
+expose 5900/tcp
+
+entrypoint ["/bin/bash", "/home/oracle/entrypoint.sh"]
+
