@@ -1,9 +1,10 @@
 # `build.sh`
 
 This interactive script builds desired images, creating local volumes as needed:
-    - The `burp_share` volume holds the JAR file as well as project and user configuration options.
-    - The `novnc_share` volume holds TLS certificates for the `novnc_client` and `novnc_server` machines.
-    - The `x11_socket` volume links `/tmp/.X11-unix` between the `burp` and `novnc_server` containers for GUI display.
+
+- The `burp_share` volume holds the JAR file as well as project and user configuration options.
+- The `novnc_share` volume holds TLS certificates for the `novnc_client` and `novnc_server` machines.
+- The `x11_socket` volume links `/tmp/.X11-unix` between the `burp` and `novnc_server` containers for GUI display.
 
 # `run.sh`
 
