@@ -60,13 +60,14 @@ then
     read -ei "0.0.0.0:8080" -p $'\n[?] Which socket to expose on the host machine?\n> ' burp_socket
 
     json_file="headless.json"
-    x11_mount="--mount src=x11_socket,dst=/tmp/.X11-unix,ro=true"
+    x11_mount=""
 
     read -p $'\n[?] Run Burp in GUI mode? [y/N]\n> ' answer
     if [[ ${answer,,} =~ ^y.* ]]
     then
         burp_args+=("--gui")
         json_file="gui.json"
+        x11_mount="--mount src=x11_socket,dst=/tmp/.X11-unix,ro=true"
         [[ -S /tmp/.X11-unix/X0 ]] && read -p $'\n[?] Use your own X Server to display Burp\'s GUI? [Y/n]\n> ' answer
         [[ ${answer,,} =~ ^n.* ]] || x11_mount="--mount type=bind,src=/tmp/.X11-unix/X0,dst=/tmp/.X11-unix/X20,ro=true"
     fi
