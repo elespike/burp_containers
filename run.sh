@@ -68,8 +68,11 @@ then
         burp_args+=("--gui")
         json_file="gui.json"
         x11_mount="--mount src=x11_socket,dst=/tmp/.X11-unix,ro=true"
-        [[ -S /tmp/.X11-unix/X0 ]] && read -p $'\n[?] Use your own X Server to display Burp\'s GUI? [Y/n]\n> ' answer
-        [[ ${answer,,} =~ ^n.* ]] || x11_mount="--mount type=bind,src=/tmp/.X11-unix/X0,dst=/tmp/.X11-unix/X20,ro=true"
+        if [[ -S /tmp/.X11-unix/X0 ]]
+        then
+            read -p $'\n[?] Use your own X Server to display Burp\'s GUI? [Y/n]\n> ' local_x
+            [[ ${local_x,,} =~ ^n.* ]] || x11_mount="--mount type=bind,src=/tmp/.X11-unix/X0,dst=/tmp/.X11-unix/X20,ro=true"
+        fi
     fi
 
     printf "\n[*] Custom configuration files can be written to the Burp instance
