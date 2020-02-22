@@ -6,7 +6,6 @@ run apt-get update \
 run apt-get install --no-install-recommends -y \
     fluxbox           \
     openssl           \
-    python-setuptools \
     websockify        \
     x11vnc            \
     xterm             \
