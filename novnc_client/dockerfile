@@ -3,7 +3,7 @@ from httpd:latest
 run apt-get update \
  && apt-get upgrade -y
 
-run apt-get install --no-install-recommends -y openssl procps
+run apt-get install --no-install-recommends -y openssl
 
 run apt autoremove -y
 
