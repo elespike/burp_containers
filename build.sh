@@ -1,8 +1,5 @@
 #! /bin/bash
 
-# Abort on error
-set -e
-
 script_dir=${0%/*}
 [[ -d ${script_dir} ]] || script_dir=$(pwd)
 
